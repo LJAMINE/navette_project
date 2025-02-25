@@ -19,6 +19,8 @@ class Authenticate
         if (!Auth::check()) {
             return redirect('/login')->with('error', 'You must be logged in.');
         }
+
+        
         return $next($request);
     }
 }
