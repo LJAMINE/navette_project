@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnounceController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Auth;
@@ -16,23 +17,17 @@ Route::get('/login', function () {
 Route::post('/login', [SessionController::class, 'store']);
 
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard.index');
-// });
-
-
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        $user = Auth::user();
-        return view($user->role === 'client' ? 'dashboard.client' : 'dashboard.societe');
-    })->name('dashboard');
+    Route::get('/dashboard', [AnnounceController::class, 'index'])->name('dashboard.index');
 });
-
 
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
 
 Route::post('/logout', [SessionController::class, 'destroy']);
+
+// Route::get('/dashboard', [AnnounceController::class, 'index'])->name('dashboard.index');
+
 
 
