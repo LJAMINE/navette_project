@@ -37,7 +37,7 @@
 //     // Only societe can create announcements
 //     Route::get('/form', [AnnounceController::class, 'create']);
 //     Route::post('/store', [AnnounceController::class, 'store']);
-    
+
 //     // Only societe can edit or delete their own announcements
 //     Route::delete('/announce/{announce}', [AnnounceController::class, 'destroy'])->name('announce.destroy');
 //     Route::get('/announce/{announce}/edit', [AnnounceController::class, 'edit'])->name('announce.edit');
@@ -71,13 +71,17 @@ Route::post('/logout', [SessionController::class, 'destroy']);
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
+Route::get('/announce/{announce}', [AnnounceController::class, 'show'])->name('announce.show')->middleware(Authenticate::class);
+
 
 Route::get('/dashboard', [AnnounceController::class, 'index'])
     ->name('dashboard.index')
     ->middleware(Authenticate::class);
 
+
+
 // Routes for creating, editing, and deleting :societe
-Route::middleware([Authenticate::class, EnsureUserHasRole::class.':1']) 
+Route::middleware([Authenticate::class, EnsureUserHasRole::class . ':1'])
     ->group(function () {
         Route::get('/form', [AnnounceController::class, 'create']);
         Route::post('/store', [AnnounceController::class, 'store']);
@@ -85,6 +89,3 @@ Route::middleware([Authenticate::class, EnsureUserHasRole::class.':1'])
         Route::get('/announce/{announce}/edit', [AnnounceController::class, 'edit'])->name('announce.edit');
         Route::put('/announce/{announce}', [AnnounceController::class, 'update'])->name('announce.update');
     });
-
-// Routes for viewing announcements (accessible by both Societe and Client)
-Route::get('/announce/{announce}', [AnnounceController::class, 'show'])->name('announce.show');

@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<x-layout>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
-</head>
-
-<body class="bg-gray-100">
 
     <div class="container mx-auto px-6 py-8">
         <h1 class="text-3xl font-bold mb-6">Societe Dashboard</h1>
@@ -19,16 +10,12 @@
             </div>
         @endif
 
-            <form method="POST" action="/logout" class="mb-6">
-                @csrf
-                <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200">
-                    Logout
-                </button>
-            </form>
-    
-            <a href="/form" class="mb-6 inline-block px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200">
-                Create 
-            </a>
+
+
+        <a href="/form"
+            class="mb-6 inline-block px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200">
+            Create
+        </a>
 
 
         <!-- Announce Table -->
@@ -58,15 +45,17 @@
                             <td class="py-4 px-6">{{ $announce->heure_fin }}</td>
                             <td class="py-4 px-6 flex items-center space-x-2">
                                 <!-- Edit Button -->
-                                <a href="{{  route('announce.edit',$announce->id) }}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200">
+                                <a href="{{  route('announce.edit', $announce->id) }}"
+                                    class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200">
                                     Edit
                                 </a>
-                                
+
                                 <!-- Delete Form -->
-                                <form  action="{{ route('announce.destroy',$announce->id) }}" method="Post" >
+                                <form action="{{ route('announce.destroy', $announce->id) }}" method="Post">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200">
+                                    <button type="submit"
+                                        class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200">
                                         Delete
                                     </button>
                                 </form>
@@ -79,6 +68,6 @@
 
         </div>
     </div>
-</body>
 
-</html>
+
+</x-layout>
