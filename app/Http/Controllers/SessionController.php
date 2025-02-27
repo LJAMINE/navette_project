@@ -11,15 +11,16 @@ class SessionController extends Controller
 
 
 
-    public function store(){
-        $attribute=request()->validate([
-'email'=>['required','email'],
-'password'=>['required'],
+    public function store()
+    {
+        $attribute = request()->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
         if (!Auth::attempt($attribute)) {
             throw ValidationException::withMessages([
-                'email'=>'sorry wrong email or password'
+                'email' => 'sorry wrong email or password'
             ]);
         }
 
@@ -28,10 +29,10 @@ class SessionController extends Controller
         return redirect('/dashboard')->with('success', 'You have been logged in.');;
     }
 
-public function destroy(){
-Auth::logout();
+    public function destroy()
+    {
+        Auth::logout();
 
-return redirect('/')->with('success', 'You have been logged out.');
-
-}
+        return redirect('/')->with('success', 'You have been logged out.');
+    }
 }

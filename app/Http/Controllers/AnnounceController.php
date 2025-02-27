@@ -13,15 +13,22 @@ class AnnounceController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->role === 'client') {
-            return view('dashboard.client');
+        if ($user->role_id === 2) {
+            $announces = Announce::all();
+            return view('dashboard.client', compact('announces'));
+        } else {
+
+            $announces = Announce::all();
+            return view('dashboard.societe', compact('announces'));
         }
 
-        $announces = Announce::where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(7);
 
-        return view('dashboard.societe', compact('announces'));
+
+
+        // $announces = Announce::where('user_id', $user->id)
+        //     ->orderBy('created_at', 'desc')
+        //     ->paginate(7);
+
     }
 
     public function create()
@@ -41,7 +48,7 @@ class AnnounceController extends Controller
             'heure_debut' => 'required|date_format:H:i',
             'heure_fin' => 'required|date_format:H:i|after:heure_debut',
         ]);
-    
+
         Announce::create([
             'title' => $request->title,
             'content' => $request->content,
@@ -51,30 +58,32 @@ class AnnounceController extends Controller
             'date_fin' => $request->date_fin,
             'heure_debut' => $request->heure_debut,
             'heure_fin' => $request->heure_fin,
-            'user_id' => Auth::id(), 
+            'user_id' => Auth::id(),
         ]);
-    
+
         return redirect('/dashboard')->with('success', 'You have added a new announce');
     }
-    
+
 
 
     public function destroy(Announce $announce)
     {
 
         $announce->delete();
-        return redirect('/dashboard')->with('success','announce deleted');;
+        return redirect('/dashboard')->with('success', 'announce deleted');;
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
 
-        $announce=Announce::findOrFail($id);
-        return view('announce.edit',compact('announce'));
+        $announce = Announce::findOrFail($id);
+        return view('announce.edit', compact('announce'));
     }
 
 
 
-    public function update(Request $request,$id){
+    public function update(Request $request, $id)
+    {
         $request->validate([
             'title' => 'required|string|min:5|max:255',
             'content' => 'required|string|min:5|max:255',
@@ -86,19 +95,18 @@ class AnnounceController extends Controller
             'heure_fin' => 'required|date_format:H:i|after:heure_debut',
         ]);
 
-        $announce=Announce::findOrFail($id);
-        $announce->title=$request->title;
-        $announce->content=$request->content;
-        $announce->nb_place=$request->nb_place;
-        $announce->description=$request->description;
-        $announce->date_debut=$request->date_debut;
-        $announce->date_fin=$request->date_fin;
-        $announce->heure_debut=$request->heure_debut;
-        $announce->heure_fin=$request->heure_fin;
+        $announce = Announce::findOrFail($id);
+        $announce->title = $request->title;
+        $announce->content = $request->content;
+        $announce->nb_place = $request->nb_place;
+        $announce->description = $request->description;
+        $announce->date_debut = $request->date_debut;
+        $announce->date_fin = $request->date_fin;
+        $announce->heure_debut = $request->heure_debut;
+        $announce->heure_fin = $request->heure_fin;
 
         $announce->save();
 
-        return redirect('/dashboard')->with('success','announce updated');;
-
+        return redirect('/dashboard')->with('success', 'announce updated');;
     }
 }

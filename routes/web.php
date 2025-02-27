@@ -3,6 +3,9 @@
 use App\Http\Controllers\AnnounceController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Http\Middleware\ClientAuthorization;
+use App\Http\Middleware\Authenticate;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +20,9 @@ Route::get('/login', function () {
 Route::post('/login', [SessionController::class, 'store']);
 
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [AnnounceController::class, 'index'])->name('dashboard.index');
-});
+
+    Route::get('/dashboard', [AnnounceController::class, 'index'])->name('dashboard.index')->middleware(Authenticate::class);
+
 
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);

@@ -17,6 +17,13 @@
             {{ session('success') }}
         </div>
         @endif
+
+        @if (session('error'))
+        <div id="flash" class="p-4 text-center bg-red-50 text-red-500 font-bold mb-6">
+            {{ session('error') }}
+        </div>
+    @endif
+    
         <form action="/login" method="POST" class="space-y-4">
             @csrf
 

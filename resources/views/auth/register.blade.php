@@ -53,9 +53,9 @@
 
             <div>
                 <label class="block text-gray-600 font-medium">Role</label>
-                <select name="role" class="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300">
-                    <option value="client">Client</option>
-                    <option value="societe">Société</option>
+                <select name="role_id" class="w-full p-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300">
+                    <option value="1">Société</option>
+                    <option value="2">Client</option>
                 </select>
             </div>
 
