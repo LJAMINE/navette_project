@@ -42,7 +42,7 @@
                 <p class="mt-2 text-gray-600"> {{ $announce->date_fin }} </p>
                 <p class="mt-2 text-gray-600"> {{ $announce->heure_debut }} </p>
                 <p class="mt-2 text-gray-600"> {{ $announce->heure_fin }} </p>
-                <a href="/profile" class="mt-4 inline-block text-blue-500 hover:underline">View Profile</a>
+                <a href="{{  route('announce.edit',$announce->id) }}" class="mt-4 inline-block text-blue-500 hover:underline">View details</a>
             </div>
             
             @endforeach

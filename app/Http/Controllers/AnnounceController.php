@@ -23,14 +23,6 @@ class AnnounceController extends Controller
             $announces = Announce::where('user_id', $user->id)->get();
             return view('dashboard.societe', compact('announces'));
         }
-
-
-
-
-        // $announces = Announce::where('user_id', $user->id)
-        //     ->orderBy('created_at', 'desc')
-        //     ->paginate(7);
-
     }
 
     public function create()
@@ -110,5 +102,12 @@ class AnnounceController extends Controller
         $announce->save();
 
         return redirect('/dashboard')->with('success', 'announce updated');;
+    }
+
+    public function show($id)
+    {
+        $announce = Announce::findOrFail($id);
+
+        return view('dashboard.show', compact('announce'));
     }
 }

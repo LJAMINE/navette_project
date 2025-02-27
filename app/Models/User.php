@@ -51,4 +51,10 @@ class User extends Authenticatable
     public function announce(){
         return $this->hasMany(Announce::class);
     }
+
+    public function hasRole($role)
+{
+    return $this->role_id == $role;
+}
+
 }
