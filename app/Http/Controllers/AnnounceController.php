@@ -13,12 +13,14 @@ class AnnounceController extends Controller
     public function index()
     {
         $user = Auth::user();
+
+
         if ($user->role_id === 2) {
             $announces = Announce::all();
             return view('dashboard.client', compact('announces'));
         } else {
 
-            $announces = Announce::all();
+            $announces = Announce::where('user_id', $user->id)->get();
             return view('dashboard.societe', compact('announces'));
         }
 
