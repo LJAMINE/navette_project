@@ -112,4 +112,13 @@ class AnnounceController extends Controller
 
         return view('dashboard.show', compact('announce'));
     }
+
+
+    public function stats(){
+
+        $user = Auth::user();
+
+        $announces=Announce::where('user_id', $user->id)->withCount('reservations')->get();
+        return view('dashboard.stats', compact('announces'));
+    }
 }

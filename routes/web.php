@@ -93,4 +93,7 @@ Route::middleware([Authenticate::class, EnsureUserHasRole::class . ':1'])
     });
 
 
+
+
+    //clients
     Route::post('/reservations',[ReservationController::class,'store'])->name('reservations.store');
