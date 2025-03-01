@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout_societe>
 
 
     <div class="container mx-auto px-6 py-8">
@@ -70,4 +70,4 @@
     </div>
 
 
-</x-layout>
+</x-layout_societe>

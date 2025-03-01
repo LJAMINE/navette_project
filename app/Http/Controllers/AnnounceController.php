@@ -14,6 +14,8 @@ class AnnounceController extends Controller
     {
         $user = Auth::user();
 
+        
+
 
         if ($user->role_id === 2) {
             $announces = Announce::all();

@@ -21,14 +21,16 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'min:6'],
             'address' => ['required'],
-            'role_id' => ['required', 'exists:roles,id']
+            'role_id' => ['required', 'exists:roles,id'],
 
         ]);
+
+        // $requestvalid['status'] = 'inactive';
 
         $user = User::create($requestvalid);
 
         Auth::login($user);
 
-        return redirect('/dashboard')->with('success', 'You have been registered.');;
+        return redirect('/dashboard')->with('success', 'You have been registered.');
     }
 }

@@ -51,10 +51,11 @@
 
 use App\Http\Controllers\AnnounceController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SessionController;
 use App\Http\Middleware\Authenticate;
-use App\Http\Middleware\EnsureUserHasRole; // Import the EnsureUserHasRole middleware
-
+use App\Http\Middleware\EnsureUserHasRole;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -88,4 +89,8 @@ Route::middleware([Authenticate::class, EnsureUserHasRole::class . ':1'])
         Route::delete('/announce/{announce}', [AnnounceController::class, 'destroy'])->name('announce.destroy');
         Route::get('/announce/{announce}/edit', [AnnounceController::class, 'edit'])->name('announce.edit');
         Route::put('/announce/{announce}', [AnnounceController::class, 'update'])->name('announce.update');
+        Route::get('/stats',[AnnounceController::class,'stats']);
     });
+
+
+    Route::post('/reservations',[ReservationController::class,'store'])->name('reservations.store');

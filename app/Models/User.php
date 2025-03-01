@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'adress',
         'role_id',
+        'status'
     ];
 
     /**
@@ -51,6 +52,13 @@ class User extends Authenticatable
     public function announce(){
         return $this->hasMany(Announce::class);
     }
+
+    public function reservations(){
+        return $this->hasMany(Reservation::class);
+    }
+
+
+
 
     public function hasRole($role)
 {
