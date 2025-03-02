@@ -13,7 +13,9 @@ class Reservation extends Model
     protected $fillable=['user_id','announce_id','nb_places'];
 
     public function announce(){
-        return $this->belongsTo(Announce::class);
+        // return $this->belongsTo(Announce::class);
+        return $this->belongsTo(Announce::class, 'announce_id');
+
     }
 
     public function user(){

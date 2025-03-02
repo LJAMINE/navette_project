@@ -15,7 +15,7 @@
                     @foreach ($announces as $announce)
                     <tr class="border-b hover:bg-gray-100">
                         <td class="py-3 px-6 text-gray-700">{{ $announce->title }}</td>
-                        <td class="py-3 px-6 text-gray-700">{{ $announce->reservations_count }}</td> <!-- Reservations count -->
+                        <td class="py-3 px-6 text-gray-700">{{ $announce->reservations_count }}</td> 
                     </tr>
                     @endforeach
                 </tbody>
