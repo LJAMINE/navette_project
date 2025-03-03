@@ -14,17 +14,35 @@ class AnnounceController extends Controller
     {
         $user = Auth::user();
 
-        
+
+        switch ($user->role_id) {
+            case 1:
+                $announces = Announce::where('user_id', $user->id)->get();
+                return view('dashboard.societe', compact('announces'));
+
+            case 2:
+                $announces = Announce::all();
+                return view('dashboard.client', compact('announces'));
+            case 3:
+                // $announces = Announce::all();
+                return view('dashboard.admin');
 
 
-        if ($user->role_id === 2) {
-            $announces = Announce::all();
-            return view('dashboard.client', compact('announces'));
-        } else {
-
-            $announces = Announce::where('user_id', $user->id)->get();
-            return view('dashboard.societe', compact('announces'));
+            default:
+                dd("error");
+                break;
         }
+
+
+
+        // if ($user->role_id === 2) {
+        //     $announces = Announce::all();
+        //     return view('dashboard.client', compact('announces'));
+        // } else {
+
+        //     $announces = Announce::where('user_id', $user->id)->get();
+        //     return view('dashboard.societe', compact('announces'));
+        // }
     }
 
     public function create()
@@ -114,11 +132,12 @@ class AnnounceController extends Controller
     }
 
 
-    public function stats(){
+    public function stats()
+    {
 
         $user = Auth::user();
 
-        $announces=Announce::where('user_id', $user->id)->withCount('reservations')->get();
+        $announces = Announce::where('user_id', $user->id)->withCount('reservations')->get();
         return view('dashboard.stats', compact('announces'));
     }
 }

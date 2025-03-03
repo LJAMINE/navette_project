@@ -5,6 +5,7 @@ use App\Http\Controllers\AnnounceController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\TagsController;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EnsureUserHasRole;
 use App\Models\Reservation;
@@ -41,13 +42,28 @@ Route::middleware([Authenticate::class, EnsureUserHasRole::class . ':1'])
         Route::delete('/announce/{announce}', [AnnounceController::class, 'destroy'])->name('announce.destroy');
         Route::get('/announce/{announce}/edit', [AnnounceController::class, 'edit'])->name('announce.edit');
         Route::put('/announce/{announce}', [AnnounceController::class, 'update'])->name('announce.update');
-        Route::get('/stats',[AnnounceController::class,'stats']);
+        Route::get('/stats', [AnnounceController::class, 'stats']);
     });
 
 
 
 
-    //clients
-    
-    Route::post('/reservations',[ReservationController::class,'store'])->name('reservations.store');
-    Route::get('/panier',[ReservationController::class,'panier']);
+//clients---------------------------
+
+Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+Route::get('/panier', [ReservationController::class, 'panier']);
+
+// ------------------------------------------
+
+
+// admin----------------------------------
+
+
+
+Route::get('/tags', [TagsController::class, 'index'])->name('dashboard.tags.index');
+Route::get('/create', [TagsController::class, 'create']);
+Route::post('/store', [TagsController::class, 'store']);
+Route::delete('/tag/{tag}', [TagsController::class, 'destroy'])->name('tag.destroy');
+
+Route::get('/tag/{tag}/edit', [TagsController::class, 'edit'])->name('tag.edit');
+Route::post('/tag/{tag}/update', [TagsController::class, 'update'])->name('tag.update');
