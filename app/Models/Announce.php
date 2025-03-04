@@ -11,14 +11,30 @@ class Announce extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title','content','status','user_id','status','nb_place','description','date_debut','date_fin','heure_debut','heure_fin'
+        'title',
+        'content',
+        'status',
+        'user_id',
+        'status',
+        'nb_place',
+        'description',
+        'date_debut',
+        'date_fin',
+        'heure_debut',
+        'heure_fin'
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-     
-    public function reservations(){
+
+    public function reservations()
+    {
         return $this->hasMany(Reservation::class);
+    }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

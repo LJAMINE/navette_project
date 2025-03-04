@@ -65,4 +65,8 @@ class User extends Authenticatable
     return $this->role_id == $role;
 }
 
+public function tags(){
+    return $this->hasMany(Tag::class);
+}
+
 }

@@ -16,4 +16,10 @@ class Tag extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function announces()
+    {
+        return $this->belongsToMany(Announce::class);
+    }
 }
+   
