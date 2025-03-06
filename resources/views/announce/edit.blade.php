@@ -54,6 +54,26 @@
             @enderror
         </div>
 
+             <div class="mb-3">
+                <label class="block text-xs font-medium text-gray-600 mb-2">Tags</label>
+                <div class="grid grid-cols-2 gap-2">
+                    @foreach ($tags as $tag)
+                        <label for="tag_{{ $tag->id }}" class="flex items-center bg-gray-50 p-2 rounded border border-gray-200 text-sm hover:bg-gray-100">
+                            <input type="checkbox" 
+                                id="tag_{{ $tag->id }}" 
+                                name="tags[]" 
+                                value="{{ $tag->id }}" 
+                                {{ in_array($tag->id, old('tags', $selectedTags)) ? 'checked' : '' }}
+                                class="mr-2 h-4 w-4 text-blue-500">
+                            <span title="{{ $tag->description }}">{{ $tag->title }}</span>
+                        </label>
+                    @endforeach
+                </div>
+                @error('tags')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
         <div class="mb-4 flex space-x-4">
             <div class="flex-1">
                 <label for="date_debut" class="block text-sm font-medium text-gray-600">Start Date</label>

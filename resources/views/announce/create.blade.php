@@ -11,7 +11,7 @@
     <div class="container mx-auto px-4 py-6">
         <h1 class="text-2xl font-bold mb-4 text-center text-gray-800">Create Announcement</h1>
 
-        <form action="/store" method="POST" class="bg-white p-4 rounded-lg shadow-sm w-full max-w-sm mx-auto">
+        <form action="/store/announce" method="POST" class="bg-white p-4 rounded-lg shadow-sm w-full max-w-sm mx-auto">
             @csrf
             
             <div class="mb-3">
@@ -42,6 +42,25 @@
                 <label for="description" class="block text-xs font-medium text-gray-600">Description</label>
                 <textarea id="description" name="description" class="mt-1 p-2 w-full border border-gray-300 rounded-lg text-sm" rows="3" >{{ old('description') }}</textarea>
                 @error('description')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label class="block text-xs font-medium text-gray-600 mb-2">Tags</label>
+                <div class="grid grid-cols-2 gap-2">
+                    @foreach ($tags as $tag)
+                        <label for="tag_{{ $tag->id }}" class="flex items-center bg-gray-50 p-2 rounded border border-gray-200 text-sm hover:bg-gray-100">
+                            <input type="checkbox" 
+                                id="tag_{{ $tag->id }}" 
+                                name="tags[]" 
+                                value="{{ $tag->id }}" 
+                                {{ in_array($tag->id, old('tags', [])) }}
+                                class="mr-2 h-4 w-4 text-blue-500">
+                            <span >{{ $tag->title }}</span>
+                        </label>
+                    @endforeach
+                </div>
+                @error('tags')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>

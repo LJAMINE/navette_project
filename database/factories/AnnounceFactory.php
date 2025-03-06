@@ -21,7 +21,7 @@ class AnnounceFactory extends Factory
 
               
             'title' => $this->faker->sentence(6), 
-            'content' => $this->faker->paragraph(3), 
+            'content' => $this->faker->paragraph(),
             'status' => $this->faker->randomElement(['valid', 'fermée']), 
             'nb_place' => $this->faker->numberBetween(1, 100), 
             'description' => $this->faker->text(200),

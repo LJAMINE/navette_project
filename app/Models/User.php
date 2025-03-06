@@ -49,11 +49,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function announce(){
+    public function announce()
+    {
         return $this->hasMany(Announce::class);
     }
 
-    public function reservations(){
+    public function reservations()
+    {
         return $this->hasMany(Reservation::class);
     }
 
@@ -61,12 +63,21 @@ class User extends Authenticatable
 
 
     public function hasRole($role)
-{
-    return $this->role_id == $role;
-}
+    {
+        return $this->role_id == $role;
+    }
 
-public function tags(){
-    return $this->hasMany(Tag::class);
-}
+    public function tags()
+    {
+        return $this->hasMany(Tag::class);
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 
+    public function hasPermission($permission){
+        return $this->role->permissions->contains('name', $permission);
+
+    }
 }
