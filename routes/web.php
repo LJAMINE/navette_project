@@ -43,12 +43,12 @@ Route::get('/dashboard', [AnnounceController::class, 'index'])
 // Route::middleware([Authenticate::class, EnsureUserHasRole::class . ':1'])
 //     ->group(function () {
 
-Route::get('/form', [AnnounceController::class, 'create']);
+Route::get('/form', [AnnounceController::class, 'create'])->name('form')->middleware(CheckPermission::class);;
 Route::post('/store/announce', [AnnounceController::class, 'store']);
-Route::delete('/announce/{announce}', [AnnounceController::class, 'destroy'])->name('announce.destroy');
-Route::get('/announce/{announce}/edit', [AnnounceController::class, 'edit'])->name('announce.edit');
-Route::put('/announce/{announce}', [AnnounceController::class, 'update'])->name('announce.update');
-Route::get('/stats', [AnnounceController::class, 'stats'])->middleware(CheckPermission::class);
+Route::delete('/announce/{announce}', [AnnounceController::class, 'destroy'])->name('announce.destroy')->middleware(CheckPermission::class);;
+Route::get('/announce/{announce}/edit', [AnnounceController::class, 'edit'])->name('announce.edit')->middleware(CheckPermission::class);;
+Route::put('/announce/{announce}', [AnnounceController::class, 'update'])->name('announce.update')->middleware(CheckPermission::class);;
+Route::get('/stats', [AnnounceController::class, 'stats'])->name('stats')->middleware(CheckPermission::class);;
 // });
 
 
@@ -57,7 +57,7 @@ Route::get('/stats', [AnnounceController::class, 'stats'])->middleware(CheckPerm
 //clients---------------------------
 
 Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
-Route::get('/panier', [ReservationController::class, 'panier'])->middleware(CheckPermission::class);
+Route::get('/panier', [ReservationController::class, 'panier'])->name('panier');
 
 // ------------------------------------------
 

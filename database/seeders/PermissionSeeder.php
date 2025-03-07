@@ -15,9 +15,13 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
 
-        $routes = collect(Route::getRoutes())->map(function ($route) {
+        $routes = collect(Route::getRoutes())
+        ->filter(function($route){
+            return $route->getName();
+        })
+        ->map(function ($route) {
             return [
-                'name' => $route->getName(). $route->uri(),
+                'name' => $route->getName() ,
                 'url' => $route->uri(),
             ];
         })->unique('name');

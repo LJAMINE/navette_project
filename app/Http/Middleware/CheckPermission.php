@@ -25,6 +25,7 @@ class CheckPermission
         }
 
         $user=Auth::user();
+        
         $currentRoute=Route::currentRouteName();
 
         $hasPermission=$user->role->permissions->contains('name',$currentRoute);
